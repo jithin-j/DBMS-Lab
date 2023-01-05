@@ -1,0 +1,126 @@
+
+declare
+a number;
+b number;
+temp number;
+rem number;
+n1 number;
+m number;
+procedure eveodd(n in number) is
+begin
+temp:=0;
+m:=n;
+n1:=n;
+
+while(n1>0)
+loop
+rem:=mod(n1,10);
+temp:=(temp*10)+rem;
+n1:=trunc(n1/10);
+end loop;
+
+if m=temp
+then
+dbms_output.put_line('yes '||m|| ' is a palindrome');
+else
+dbms_output.put_line('no '||m|| ' is not a palindrome');
+end if;
+
+end eveodd;
+begin
+a:=7567;
+
+eveodd(a);
+
+end;
+
+
+
+
+
+
+
+
+
+
+declare
+s_id employee.id%type;
+s_name employee.name%type;
+s_mark employee.marks%type;
+s_grade employee.grade%type;
+cursor c_list is select * from employee order by marks desc;
+begin
+open c_list;
+loop fetch c_list into s_id,s_name,s_mark,s_grade;
+exit when c_list%notfound;
+if s_mark<40 then
+s_grade:='F';
+elsif s_mark>50 then
+s_grade:='P';
+end if;
+dbms_output.put_line(' id '||s_id||' name '||s_name||' marks '||s_mark||' grade '||s_grade);
+end loop;
+close c_list;
+end;
+/
+
+
+create or replace trigger triga
+before delete or insert or update on employee
+for each row
+when (NEW.id>0)
+
+declare
+result varchar(200);
+begin
+if (:NEW.marks>50) then
+dbms_output.put_line('You passed');
+elsif (:NEW.marks<50) then
+dbms_output.put_line('You failed');
+end if;
+
+end;
+
+
+
+
+
+insert into employee values(5,"Adarsh",32,null);
+
+declare
+n number;
+i number:=0;
+c number:=0;
+temp number;
+
+begin
+n:=7;
+for i in 1.. n loop 
+temp:=mod(n,i);
+if temp=0 then 
+c:=c+1;
+end if;
+end loop;
+
+if c=2 then
+  dbms_output.put_line('prime');
+else
+  dbms_output.put_line(' notprime');
+end if;
+end;
+
+
+ 
+declare
+f number;
+x number:=0;
+procedure fact(n in number)is
+begin
+x:=n;
+if x=0 then
+ f:=1;
+else
+ f:=x * fact(x-1);
+end if;
+dbms_output.put_line('Factorial is '||f);
+end fact;
