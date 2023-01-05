@@ -1,0 +1,20 @@
+Declare
+a student.age%type;
+m student.mark%type;
+snam student.sname%type;
+roll student.id%type;
+Cursor crs1 is select sname,id,mark,age from student for update of mark;
+Begin
+Open crs1;
+Loop fetch crs1 into snam,roll,m,a;
+Exit when crs1%notfound;
+
+if a>16 then
+	m:=(m-(m*0.2));
+Else
+	m:=(m+(m*0.2));
+End if;
+End loop;
+Close crs1;
+end;
+/
